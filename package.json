@@ -9,9 +9,10 @@
   "author": "NewDay",
   "license": "ISC",
   "dependencies": {
-    "express": "~4.7.2",
     "body-parser": "~1.5.2",
-    "mysql": "^2.6.1",
-    "method-override": "~2.1.2"
+    "express": "~4.7.2",
+    "method-override": "~2.1.2",
+    "multer": "^0.1.8",
+    "mysql": "^2.6.1"
   }
 }
