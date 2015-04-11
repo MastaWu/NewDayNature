@@ -19,5 +19,5 @@ app.use(methodOverride());
 
 require('./config/routes.js')(app, router, mysql);
 
-app.listen(8080);
+app.listen(8000);
 console.log("Connected at port: 8000")
