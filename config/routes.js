@@ -39,9 +39,9 @@ module.exports = function(app, router, mysql){
         }
     }));
 
-    app.get('/api/', function (req, res) {
+    app.get('/getLocale', function (req, res) {
 
-        db.query('SELECT * FROM users', function (err, rows) {
+        db.query('SELECT * FROM logs', function (err, rows) {
 
             if(err) throw err;
 
@@ -67,8 +67,20 @@ module.exports = function(app, router, mysql){
 
         res.send(req.files);
 
-    })
+    });
 
-    app.post('/local');
+    app.get('/getImgUrl', function(req, res){
+
+        db.query('SELECT * FROM img_location', function (err, rows) {
+
+            if(err) throw err;
+
+            json = JSON.stringify(rows);
+
+            res.send(json);
+
+        });
+
+    });
 
 };
