@@ -1,0 +1,17 @@
+{
+  "name": "NewDayNature",
+  "version": "1.0.0",
+  "description": "Imagine tomorrow, Imagine the past",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "NewDay",
+  "license": "ISC",
+  "dependencies": {
+    "express": "~4.7.2",
+    "body-parser": "~1.5.2",
+    "mysql": "^2.6.1",
+    "method-override": "~2.1.2"
+  }
+}
