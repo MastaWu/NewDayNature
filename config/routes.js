@@ -2,7 +2,7 @@
 
 var multer = require('multer');
 
-module.exports = function(app, router, mysql){
+module.exports = function(app, router, mysql) {
 
     var db = mysql.createConnection({
         port: 3306,
@@ -17,13 +17,16 @@ module.exports = function(app, router, mysql){
         next();
     });
 
-    app.get('/', function(req, res){
+    app.post('postLocale/', function (req, res){
 
-        res.sendfile('index.html');
+        console.log('test');
+        console.log(req.params.user_id);
+        res.send(req.params);
 
     });
 
-    app.use(multer({dest: './pictures/',
+    app.use(multer({
+        dest: './pictures/',
         rename: function (fieldname, filename) {
             return filename + Date.now();
         },
@@ -32,10 +35,10 @@ module.exports = function(app, router, mysql){
         },
         onFileUploadComplete: function (file) {
             console.log(file.fieldname + ' uploaded to  ' + file.path)
-            db.query('INSERT INTO img_location(id, img_url, favs) VALUES (' + ', ' + file.path + ', favs)', function(err){
-                if(err) throw err;
+            db.query('INSERT INTO img_location(id, img_url, favs) VALUES (' + ', ' + file.path + ', favs)', function (err) {
+                if (err) throw err;
                 console.log(file.path);
-            } )
+            })
         }
     }));
 
@@ -43,7 +46,7 @@ module.exports = function(app, router, mysql){
 
         db.query('SELECT * FROM logs', function (err, rows) {
 
-            if(err) throw err;
+            if (err) throw err;
 
             json = JSON.stringify(rows);
 
@@ -53,33 +56,63 @@ module.exports = function(app, router, mysql){
 
     });
 
-    app.get('/pictures/:id', function(req, res){
+    app.get('/pictures/:id', function (req, res) {
 
         var picUrl = req.params.id;
         console.log(picUrl);
-        res.sendfile('/pictures/'+ picUrl);
+        res.sendfile('/pictures/' + picUrl);
 
     });
 
 
-
-    app.post('/upload', function(req, res){
+    app.post('/upload', function (req, res) {
 
         res.send(req.files);
 
     });
 
-    app.get('/getImgUrl', function(req, res){
+    app.get('/getImgUrl', function (req, res) {
 
         db.query('SELECT * FROM img_location', function (err, rows) {
 
-            if(err) throw err;
+            if (err) throw err;
 
             json = JSON.stringify(rows);
 
             res.send(json);
 
         });
+
+    });
+
+    /*app.post('postLocale/v1/stories/:user_id/:location:/longitude/:latitude/:caption/:natureMedium/:activity/:ratings', function (req, res) {
+
+        var user_id = req.params.user_id,
+            location = req.params.location,
+            longitude = req.params.longitude,
+            latitude = req.params.latitude,
+            caption = req.params.caption,
+            natureMedium = req.params.natureMedium,
+            activity = req.params.activity,
+            ratings = req.params.ratings;
+
+        console.log(req.params);
+        res.send(req.params);
+
+        db.query('INSERT INTO logs (user_id, location, longitude, latitude, caption, natureMedium, activity, ratings VALUES (' + user_id + ', "' + location + '", ' + longitude + ', ' + latitude + ', "' + caption + '", "' + natureMedium + '", "' + activity + '", ' + ratings + ');',
+            function (err) {
+
+                if (err) throw err;
+
+                console.log('It works!');
+
+            });
+
+    });*/
+
+    app.get('/', function (req, res) {
+
+        res.sendfile('index.html');
 
     });
 
